@@ -11,6 +11,13 @@ canvas {
     width: 700px;
   }
 }
+@media only screen and (max-width: 600px)  {
+  .chart-container {
+    position: relative;
+    margin: auto;
+    height: 350px;
+  }
+}
 
 .badge{
     font-size: 0.9rem;
@@ -61,13 +68,23 @@ a {
   font-weight: bold;
   color: #17a2b8;  
 }
+
 .navbar-brand
 {
   font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
-  font-size: 2rem;
   font-weight: 700;
   padding: 0px 10px;
   width:100%;
+}
+@media only screen and (min-width: 600px)  {
+  .navbar-brand {
+      font-size: 2rem;
+  }
+}
+@media only screen and (max-width: 600px)  {
+  .navbar-brand {
+      font-size: 1.3rem;
+  }
 }
 
 .lead {

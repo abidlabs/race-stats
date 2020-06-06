@@ -64,9 +64,6 @@
               <small> Sources for <a href="https://mdbootstrap.com/docs/jquery/components/badges/" target="_blank">dataset 1</a> and <a href="" target="_blank">dataset 2</a></small>
               <small>A caveat: Not every source defines race & ethnicity the same way. We have tried to ensure consistent definitions as much as possible, but please refer to the original sources for the definitions.</small>              
             </div>
-            <p>
-            Year: <a href="#" class="badge badge-dark">2019</a>
-             </p>
              <!-- <a href="#" class="badge badge-light">2018</a><a href="#" class="badge badge-light">2010</a>  -->
             <p> &nbsp; </p>
             <p> &nbsp; </p>
@@ -254,7 +251,7 @@ function updateGraphData(){
       var idx0 = activeElements[0]
       var el0 = $("#statistics-buttons :nth-child(" + (1 + idx0) +  ")");
       data0 = [parseInt(el0.attr("data-white")), parseInt(el0.attr("data-black")), parseInt(el0.attr("data-hispanic")), parseInt(el0.attr("data-asian"))]
-      var label0 = el0.html()
+      var label0 = el0.html() + ', 2019'
   } else {
       data0 = [0, 0, 0, 0]
       var label0 = ''    
@@ -263,7 +260,7 @@ function updateGraphData(){
       var idx1 = activeElements[1]
       var el1 = $("#statistics-buttons :nth-child(" + (1 + idx1) +  ")");
       data1 = [parseInt(el1.attr("data-white")), parseInt(el1.attr("data-black")), parseInt(el1.attr("data-hispanic")), parseInt(el1.attr("data-asian"))]
-      var label1 = el1.html()
+      var label1 = el1.html() + ', 2019'
   } else {
       data1 = [0, 0, 0, 0]
       var label1 = ''    
