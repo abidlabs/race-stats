@@ -1,4 +1,4 @@
-# Compare Racial Statistics & Disparities in the US Easily
+# Compare Racial Statistics & Disparities in the US
 
 Live website: https://abidlabs.github.io/race-stats
 
