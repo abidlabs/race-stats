@@ -1,6 +1,6 @@
 # Compare Racial Statistics & Disparities in the US Easily
 
-Live website: https://abidlabs.github.io/race-stats/?i0=0&i1=1
+Live website: https://abidlabs.github.io/race-stats
 
 Screenshot:
 
