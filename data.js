@@ -1,0 +1,62 @@
+var race_data = [
+  {
+    'name': '% of US Population',
+    'source': 'https://www.census.gov/quickfacts/fact/table/US/IPE120218',
+    'statistics': {
+      'black': 13.4,
+      'white': 60.4,
+      'asian': 5.9,
+      'hispanic': 18.3
+    }
+  },
+  {
+    'name': '# Killed by Police',
+    'source': 'https://mappingpoliceviolence.org/nationaltrends',
+    'statistics': {
+      'black': 259,
+      'white': 406,
+      'asian': 17,
+      'hispanic': 182
+    }
+  },
+  {
+    'name': '# Unarmed, Killed by Police',
+    'source': 'https://mappingpoliceviolence.org/nationaltrends',
+    'statistics': {
+      'black': 28,
+      'white': 51,
+      'asian': 2,
+      'hispanic': 20
+    }
+  },    
+  {
+    'name': '# Arrested for All Crimes',
+    'source': 'https://ucr.fbi.gov/crime-in-the-u.s/2018/crime-in-the-u.s.-2018/tables/table-43',
+    'statistics': {
+      'black': 2115381,
+      'white': 5319654,
+      'asian': 92737,
+      'hispanic': 1191334
+    }
+  },
+  {
+    'name': '# Arrested for Violent Crimes',
+    'source': 'https://ucr.fbi.gov/crime-in-the-u.s/2018/crime-in-the-u.s.-2018/tables/table-43',
+    'statistics': {
+      'black': 4778+5376+36187+100393,
+      'white': 3953+12794+29025+184527,
+      'asian': 94+289+641+5078,
+      'hispanic': 1472+4090+12823+65056
+    }
+  },
+  {
+    'name': '# Arrested for Murder',
+    'source': 'https://ucr.fbi.gov/crime-in-the-u.s/2018/crime-in-the-u.s.-2018/tables/table-43',
+    'statistics': {
+      'black': 4778,
+      'white': 3953,
+      'asian': 94,
+      'hispanic': 1472
+    }
+  }
+]

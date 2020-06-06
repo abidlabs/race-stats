@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="taboo-logo2.png" type="image/png">
+    <title>Compare US Race Statistics</title>
+
+    <meta property="og:url" content="https://abidlabs.github.io/infinite-taboo/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://abidlabs.github.io/infinite-taboo/taboo-logo2.png" />
+    <meta property="og:title" content="Infinite Taboo" />
+    <meta property="og:description" content="Using artificial intelligence to generate fresh cards so you can keep playing!" />
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:creator" content="@abidlabs">
+    <meta name="twitter:title" content="Infinite Taboo">
+    <meta name="twitter:description" content="Using artificial intelligence to generate fresh cards so you can keep playing!">
+    <meta name="twitter:image" content="https://abidlabs.github.io/infinite-taboo/taboo-logo2.png">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52040224-4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-52040224-4');
+    </script>
+
+  </head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+  <div class="container ">
+    <a class="navbar-brand" href="#" id="navbar-brand">Compare US Race Statistics</a>
+  </div>
+</nav>
+
+
+
+
+<!-- Full Page Image Header with Vertically Centered Content -->
+<header class="masthead-index text-center">
+  <div class="container h-100" id="masthead-intro">
+    <div class="row">
+      <div class="col-12">
+          <p>
+          Choose two statistics to compare, or refresh the page to see random comparisons:
+          </p> 
+            <div id="statistics-buttons">
+          </div>
+            <p> &nbsp; </p>
+            <div class="chart-container">
+              <canvas id="chart"></canvas>
+            </div>
+            <div>
+              <small> Sources for <a href="https://mdbootstrap.com/docs/jquery/components/badges/" target="_blank">dataset 1</a> and <a href="" target="_blank">dataset 2</a></small>
+              <small>A caveat: Not every source defines race & ethnicity the same way. We have tried to ensure consistent definitions as much as possible, but please refer to the original sources for the definitions.</small>              
+            </div>
+            <p>
+            Year: <a href="#" class="badge badge-dark">2019</a>
+             </p>
+             <!-- <a href="#" class="badge badge-light">2018</a><a href="#" class="badge badge-light">2010</a>  -->
+            <p> &nbsp; </p>
+            <p> &nbsp; </p>
+
+
+    </div>
+  </div>
+
+</header>
+    <footer class="footer">
+      <div class="container text-right">
+        <span class="text-muted">&copy; 2020 Abubakar Abid &bull; <a href="https://twitter.com/abidlabs">Twitter</a></span>
+      </div>
+    </footer>
+
+
+  </body>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+    <script
+        src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+      <script src="data.js"></script>
+<script>
+race_data.forEach(element => $("#statistics-buttons").append("<a href='#' class='stat-btn badge badge-light' data-src='" + element.source + "' data-white=" + element.statistics.white + " data-black=" + element.statistics.black + " data-hispanic=" + element.statistics.hispanic + " data-asian=" + element.statistics.asian + ">" +  element.name + "</a>"))
+
+/* Randomize array in-place using Durstenfeld shuffle algorithm */
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+let range = n => [...Array(n).keys()]
+
+var indices = range(race_data.length)
+
+function randomlySelectActive(){
+  shuffleArray(indices)
+  var i0 = indices[0]
+  var i1 = indices[1]
+  $('#statistics-buttons :nth-child(' + (i0 + 1) + ')').removeClass('badge-light').addClass('badge-dark')
+  $('#statistics-buttons :nth-child(' + (i1 + 1) + ')').removeClass('badge-light').addClass('badge-dark')
+}
+
+data0 = [0, 0, 0, 0]
+data1 = [0, 0, 0, 0]
+
+
+Chart.Legend.prototype.afterFit = function() {
+    this.height = this.height + 20;
+};
+
+window.chartColors = {
+  red: 'rgb(201, 203, 207)',
+  grey: 'rgb(255, 99, 132)',
+  orange: 'rgb(255, 159, 64)',
+  yellow: 'rgb(255, 205, 86)',
+  green: 'rgb(75, 192, 192)',
+  blue: 'rgb(54, 162, 235)',
+  purple: 'rgb(153, 102, 255)'
+};
+
+var data = {
+  labels: ["White", "Black", "Hispanic", "Asian"],
+  datasets: [{
+    label: "Dataset #1",
+    backgroundColor: window.chartColors.red,
+    yAxisID: "y-axis-1",    
+    data: data0,
+  }, {
+    label: "Dataset #2",
+    yAxisID: "y-axis-2",    
+    backgroundColor: window.chartColors.grey,
+    data: data1,
+  }],
+};
+
+var options = {
+  maintainAspectRatio: false,
+      legend: {
+        labels: {
+            fontSize: 16
+        }
+      },
+  scales: {
+    yAxes: [{
+      type: "linear", 
+      display: true,
+      position: "left",
+      id: "y-axis-1",
+      ticks: {
+        fontColor: window.chartColors.red,
+        fontSize: 16,
+        beginAtZero: true,
+        max: Math.max.apply(Math, data0),
+        callback: function(value, index, values) {
+                  if (index === values.length - 1) return 0;
+                  else if (index === 0) return Math.max.apply(this, data0).toLocaleString();
+                  else return '';
+        }
+
+      },
+      gridLines: {
+        drawOnChartArea: false
+      }
+    }, {
+      type: "linear", 
+      display: true,
+      position: "right",
+      id: "y-axis-2",
+      ticks: {
+        fontSize: 16,
+        beginAtZero: true,
+        max: Math.max.apply(Math, data1),
+        callback: function(value, index, values) {
+                  if (index === values.length - 1) return 0;
+                  else if (index === 0) return Math.max.apply(this, data1).toLocaleString();
+                  else return '';
+        }
+      },
+      gridLines: {
+        drawOnChartArea: false
+      }
+    }],
+    xAxes: [{
+      gridLines: {
+        display: false
+      },
+      ticks: {
+        fontSize: 16
+      }
+    }]
+  }
+};
+
+var mainChart = Chart.Bar('chart', {
+  options: options,
+  data: data
+});  
+
+$('#statistics-buttons').on('click', '.stat-btn', function(){
+    var numActive = 0;
+    $('#statistics-buttons').children().each(function() {
+      if ($(this).hasClass('badge-dark')){
+        numActive += 1;
+      }
+    })
+
+    if ($(this).hasClass('badge-light') && numActive < 2) {
+      $(this).removeClass('badge-light');
+      $(this).addClass('badge-dark');
+    } 
+    else {
+      $(this).removeClass('badge-dark');
+      $(this).addClass('badge-light');
+    }
+    updateGraphData()    
+})
+
+function updateGraphData(){
+  var activeElements = []
+    $('#statistics-buttons').children().each(function(index) {
+      if ($(this).hasClass('badge-dark')){
+        activeElements.push(index);
+      }
+    })
+  if (activeElements.length > 0){
+      var idx0 = activeElements[0]
+      var el0 = $("#statistics-buttons :nth-child(" + (1 + idx0) +  ")");
+      data0 = [parseInt(el0.attr("data-white")), parseInt(el0.attr("data-black")), parseInt(el0.attr("data-hispanic")), parseInt(el0.attr("data-asian"))]
+      var label0 = el0.html()
+  } else {
+      data0 = [0, 0, 0, 0]
+      var label0 = ''    
+  }
+  if (activeElements.length > 1){
+      var idx1 = activeElements[1]
+      var el1 = $("#statistics-buttons :nth-child(" + (1 + idx1) +  ")");
+      data1 = [parseInt(el1.attr("data-white")), parseInt(el1.attr("data-black")), parseInt(el1.attr("data-hispanic")), parseInt(el1.attr("data-asian"))]
+      var label1 = el1.html()
+  } else {
+      data1 = [0, 0, 0, 0]
+      var label1 = ''    
+  }
+  mainChart.data.datasets[0].data = data0
+  mainChart.data.datasets[0].label = label0
+  mainChart.options.scales.yAxes[0].ticks.max = Math.max.apply(Math, data0)
+  mainChart.data.datasets[1].data = data1
+  mainChart.data.datasets[1].label = label1
+  mainChart.options.scales.yAxes[1].ticks.max = Math.max.apply(Math, data1)
+  mainChart.update()
+}
+
+randomlySelectActive()
+updateGraphData();
+
+
+</script>
+
+
+  </body>
+</html>
