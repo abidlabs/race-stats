@@ -19,6 +19,13 @@ canvas {
   }
 }
 
+#statistics-buttons{
+  border: 1px solid #ddd;
+  padding: 10px 0px;
+}
+
+
+
 .badge{
     font-size: 0.9rem;
     margin: 5px;
@@ -30,8 +37,18 @@ canvas {
   background-repeat: no-repeat;
 }
 
+@media only screen and (min-width: 600px)  {
+  .masthead-index {
+    padding-top: 120px;
+  }
+}
+@media only screen and (max-width: 600px)  {
+  .masthead-index {
+    padding-top: 80px;
+  }
+}
+
 .masthead-index {
-  padding-top: 120px;
   height: 100vh;
   min-height: 500px;
   background-size: cover;
