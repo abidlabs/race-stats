@@ -50,6 +50,17 @@ var race_data = [
     }
   },
   {
+    'name': '# Below Poverty Line',
+    'source': 'http://federalsafetynet.com/us-poverty-statistics.html',
+    'statistics': {
+      'black': 8900000,
+      'white': 15700000,
+      'asian': 2000000,
+      'hispanic': 10500000
+    }
+  },
+
+  {
     'name': '# Arrested for Murder',
     'source': 'https://ucr.fbi.gov/crime-in-the-u.s/2018/crime-in-the-u.s.-2018/tables/table-43',
     'statistics': {
