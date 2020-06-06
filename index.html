@@ -52,7 +52,7 @@
     <div class="row">
       <div class="col-12">
           <p>
-          Choose up to two statistics to compare, or refresh the page to see random comparisons:
+          Choose up to two statistics to compare, or <a href="index.html">click to see a random comparison</a>:
           </p> 
             <div id="statistics-buttons">
           </div>
@@ -62,7 +62,7 @@
             </div>
             <div>
               <small> Sources for <a href="https://mdbootstrap.com/docs/jquery/components/badges/" target="_blank">dataset 1</a> and <a href="" target="_blank">dataset 2</a></small>
-              <small>A caveat: Not every source defines race & ethnicity the same way. We have tried to ensure consistent definitions as much as possible, but please refer to the original sources for the definitions.</small>              
+              <small>A caveat: Not every source defines race & ethnicity the same way. We have tried to ensure consistent definitions as much as possible, but please refer to the original sources for the definitions. Sharing the current link to this page shares this specific graph.</small>              
             </div>
              <!-- <a href="#" class="badge badge-light">2018</a><a href="#" class="badge badge-light">2010</a>  -->
             <p> &nbsp; </p>
@@ -117,12 +117,36 @@ let range = n => [...Array(n).keys()]
 
 var indices = range(race_data.length)
 
+var getParams = function (url) {
+  var params = {};
+  var parser = document.createElement('a');
+  parser.href = url;
+  var query = parser.search.substring(1);
+  var vars = query.split('&');
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split('=');
+    params[pair[0]] = decodeURIComponent(pair[1]);
+  }
+  return params;
+};
+
+
 function randomlySelectActive(){
-  shuffleArray(indices)
-  var i0 = indices[0]
-  var i1 = indices[1]
-  $('#statistics-buttons :nth-child(' + (i0 + 1) + ')').removeClass('badge-light').addClass('badge-dark')
-  $('#statistics-buttons :nth-child(' + (i1 + 1) + ')').removeClass('badge-light').addClass('badge-dark')
+  var params = getParams(window.location.href);
+  if ('i0' in params) {
+    var i0 = parseInt(params['i0'])
+    $('#statistics-buttons :nth-child(' + (i0 + 1) + ')').removeClass('badge-light').addClass('badge-dark')
+    if ('i1' in params) {
+        var i1 =  parseInt(params['i1'])
+        $('#statistics-buttons :nth-child(' + (i1 + 1) + ')').removeClass('badge-light').addClass('badge-dark')  
+    }
+  } else {
+    shuffleArray(indices)
+    var i0 = indices[0]
+    var i1 = indices[1]
+    $('#statistics-buttons :nth-child(' + (i0 + 1) + ')').removeClass('badge-light').addClass('badge-dark')
+    $('#statistics-buttons :nth-child(' + (i1 + 1) + ')').removeClass('badge-light').addClass('badge-dark')  
+  }
 }
 
 data0 = [0, 0, 0, 0]
@@ -240,6 +264,16 @@ $('#statistics-buttons').on('click', '.stat-btn', function(){
     updateGraphData()    
 })
 
+
+function updateUrl(params) {
+    if (history.pushState) {
+        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + params;
+        window.history.pushState({
+            path: newurl
+        }, '', newurl);
+    }
+}
+
 function updateGraphData(){
   var activeElements = []
     $('#statistics-buttons').children().each(function(index) {
@@ -247,11 +281,13 @@ function updateGraphData(){
         activeElements.push(index);
       }
     })
+  var params = ""
   if (activeElements.length > 0){
       var idx0 = activeElements[0]
       var el0 = $("#statistics-buttons :nth-child(" + (1 + idx0) +  ")");
       data0 = [parseInt(el0.attr("data-white")), parseInt(el0.attr("data-black")), parseInt(el0.attr("data-hispanic")), parseInt(el0.attr("data-asian"))]
       var label0 = el0.html() + ', 2019'
+      params += ("?i0=" + idx0)
   } else {
       data0 = [0, 0, 0, 0]
       var label0 = ''    
@@ -261,6 +297,7 @@ function updateGraphData(){
       var el1 = $("#statistics-buttons :nth-child(" + (1 + idx1) +  ")");
       data1 = [parseInt(el1.attr("data-white")), parseInt(el1.attr("data-black")), parseInt(el1.attr("data-hispanic")), parseInt(el1.attr("data-asian"))]
       var label1 = el1.html() + ', 2019'
+      params += "&i1=" + idx1
   } else {
       data1 = [0, 0, 0, 0]
       var label1 = ''    
@@ -272,6 +309,8 @@ function updateGraphData(){
   mainChart.data.datasets[1].label = label1
   mainChart.options.scales.yAxes[1].ticks.max = Math.max.apply(Math, data1)
   mainChart.update()
+  console.log(params)
+  updateUrl(params)
 }
 
 randomlySelectActive()
