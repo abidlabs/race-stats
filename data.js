@@ -1,12 +1,12 @@
 var race_data = [
   {
-    'name': '% of US Population',
+    'name': 'Population in the US',
     'source': 'https://www.census.gov/quickfacts/fact/table/US/IPE120218',
     'statistics': {
-      'black': 13.4,
-      'white': 60.4,
-      'asian': 5.9,
-      'hispanic': 18.3
+      'black': 0.134*328239523,
+      'white': 0.604*328239523,
+      'asian': 0.059*328239523,
+      'hispanic': 0.183*328239523
     }
   },
   {

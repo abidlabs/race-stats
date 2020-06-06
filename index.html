@@ -251,8 +251,14 @@ $('#statistics-buttons').on('click', '.stat-btn', function(){
         numActive += 1;
       }
     })
+    if  (numActive >= 2 && $(this).hasClass('badge-light')){ // trying to turn on more than 2
+      $('#statistics-buttons').children().each(function() {
+        $(this).removeClass('badge-dark')
+        $(this).addClass('badge-light')
+      })
+    }
 
-    if ($(this).hasClass('badge-light') && numActive < 2) {
+    if ($(this).hasClass('badge-light')) {
       $(this).removeClass('badge-light');
       $(this).addClass('badge-dark');
     } 
