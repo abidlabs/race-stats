@@ -2,5 +2,7 @@
 
 Live website: https://abidlabs.github.io/race-stats/?i0=0&i1=1
 
+Screenshot:
+
 ![alt text](https://raw.githubusercontent.com/abidlabs/race-stats/master/screenshot.png)
 
